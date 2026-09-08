@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Triệu hồi con tướng BP</title>
+    <title>Triệu hồi con tướng Bích Phương</title>
     <!-- Import Font Manrope từ Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,7 +18,7 @@
 
         body {
             font-family: 'Manrope', sans-serif;
-            background-image: url('back.jpg'); 
+            background-image: url('back.jpg'); /* Nền mặc định cho màn hình ngang */
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -32,6 +32,14 @@
             padding: 20px;
         }
 
+        /* Responsive Background cho màn hình dọc (Mobile/Tablet) */
+        @media (orientation: portrait), (max-width: 768px) {
+            body {
+                background-image: url('back2.jpg'); 
+                background-attachment: scroll; /* Sửa lỗi zoom trên iOS */
+            }
+        }
+
         .container {
             max-width: 1000px;
             width: 100%;
@@ -41,7 +49,7 @@
             gap: 25px; 
         }
 
-        /* Xử lý phần chữ chính chắc chắn 3 dòng */
+        /* Cố định 3 dòng chữ chính */
         .main-text {
             display: flex;
             flex-direction: column;
@@ -52,7 +60,7 @@
 
         .main-text .line {
             display: block;
-            white-space: nowrap; /* Bắt buộc không cho rớt chữ */
+            white-space: nowrap;
             font-size: clamp(0.9rem, 2.2vw, 2.2rem); 
             font-weight: 800;
             line-height: 1.4;
@@ -68,14 +76,26 @@
             margin-bottom: 10px;
         }
 
-        /* Layout mới cho bộ đếm thời gian */
+        /* --- HIỆU ỨNG TỎA SÁNG LIÊN TỤC (GLOW) --- */
+        @keyframes text-glow {
+            0% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.4), 0 0 20px rgba(255, 200, 220, 0.2); }
+            50% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.9), 0 0 30px rgba(255, 150, 200, 0.6), 0 0 40px rgba(255, 150, 200, 0.4); }
+            100% { text-shadow: 0 0 10px rgba(255, 255, 255, 0.4), 0 0 20px rgba(255, 200, 220, 0.2); }
+        }
+
+        @keyframes btn-glow {
+            0% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.2), 0 4px 15px rgba(0,0,0,0.3); }
+            50% { box-shadow: 0 0 25px rgba(255, 255, 255, 0.7), 0 0 35px rgba(255, 255, 255, 0.4), 0 4px 15px rgba(0,0,0,0.3); }
+            100% { box-shadow: 0 0 10px rgba(255, 255, 255, 0.2), 0 4px 15px rgba(0,0,0,0.3); }
+        }
+
+        /* Layout bộ đếm thời gian */
         .timer-container {
             display: flex;
             align-items: flex-start;
             justify-content: center;
             gap: clamp(10px, 3vw, 25px);
             margin: 15px 0;
-            text-shadow: 3px 3px 10px rgba(0,0,0,0.5);
         }
 
         .time-box {
@@ -90,6 +110,8 @@
             letter-spacing: 2px;
             font-variant-numeric: tabular-nums;
             line-height: 1;
+            /* Thêm hiệu ứng tỏa sáng nhịp thở 2.5s lặp lại liên tục */
+            animation: text-glow 2.5s infinite ease-in-out;
         }
 
         .time-box .label {
@@ -99,12 +121,14 @@
             margin-top: 8px;
             letter-spacing: 1px;
             opacity: 0.9;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
         }
 
         .separator {
             font-size: clamp(2.5rem, 6vw, 5.5rem);
             font-weight: 800;
             line-height: 1;
+            animation: text-glow 2.5s infinite ease-in-out;
         }
 
         .cta-text {
@@ -115,9 +139,10 @@
             text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
         }
 
+        /* Nút bấm kèm hiệu ứng tỏa sáng */
         .action-btn {
             background: rgba(255, 255, 255, 0.2); 
-            border: 2px solid rgba(255, 255, 255, 0.6); 
+            border: 2px solid rgba(255, 255, 255, 0.8); 
             color: white;
             padding: 15px 60px;
             font-size: clamp(1rem, 2vw, 1.5rem);
@@ -129,13 +154,17 @@
             transition: all 0.3s ease;
             backdrop-filter: blur(4px); 
             -webkit-backdrop-filter: blur(4px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             margin: 10px 0;
+            /* Thêm hiệu ứng viền tỏa sáng liên tục */
+            animation: btn-glow 2.5s infinite ease-in-out;
         }
 
         .action-btn:hover {
-            background: rgba(255, 255, 255, 0.35);
+            background: rgba(255, 255, 255, 0.4);
             transform: scale(1.05);
+            /* Sáng mạnh hơn khi hover */
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.9);
+            animation: none; 
         }
 
         .action-btn:active {
@@ -153,6 +182,7 @@
             font-weight: 800;
             display: inline-block;
             transition: transform 0.2s ease;
+            color: #fff;
         }
     </style>
 </head>
@@ -168,7 +198,7 @@
         
         <p class="sub-text">Ngày xưa, có 2 người đẹp tên Bích Phương bị buộc phải rời xa nhau kể từ ngày cô ca sĩ nọ ra MV "Thương", đến nay, hai người đẹp vẫn đang ngày càng bị tách ra xa khỏi nhau và chỉ có thể đến gần nhau vào ngày cô ca sĩ nọ năm nào ra MV mới đích thực</p>
         
-        <!-- Ô đếm thời gian có thêm chú thích Ngày - Giờ - Phút - Giây bên dưới -->
+        <!-- Ô đếm thời gian có hiệu ứng phát sáng -->
         <div class="timer-container">
             <div class="time-box">
                 <span class="num" id="days">00</span>
@@ -196,6 +226,7 @@
             ĐƯỢC TRỞ VỀ BÊN NHAU
         </p>
 
+        <!-- Nút bấm tỏa sáng -->
         <button class="action-btn" id="btn-submit">ẤN ĐỂ +1 PHIẾU</button>
         
         <p class="counter-text">ĐÃ CÓ <span id="click-count">1231</span> NGƯỜI GỬI ĐI</p>
@@ -240,68 +271,51 @@
         updateTimer();
         setInterval(updateTimer, 1000);
 
-
         // --- 2. XỬ LÝ BỘ ĐẾM LƯỢT BẤM (CÓ LƯU TRẠNG THÁI) ---
         const btnSubmit = document.getElementById('btn-submit');
         const clickCountElement = document.getElementById('click-count');
 
-        // Kiểm tra xem trong LocalStorage đã có dữ liệu lưu trước đó chưa
         let savedCount = localStorage.getItem('bichPhuongCount');
-        
-        // Nếu chưa có, gán mặc định là 1231. Nếu có rồi, chuyển thành số nguyên.
         let count = savedCount ? parseInt(savedCount) : 1231;
-        
-        // Hiển thị số lượng ban đầu khi vừa load trang
         clickCountElement.textContent = count;
 
         btnSubmit.addEventListener('click', () => {
             count++;
             clickCountElement.textContent = count;
             
-            // Lưu lại vào trình duyệt để F5 không mất
             localStorage.setItem('bichPhuongCount', count);
             
-            // Hiệu ứng scale khi bấm
-            clickCountElement.style.transform = 'scale(1.5)';
+            // Hiệu ứng scale nhấn mạnh khi bấm
+            clickCountElement.style.transform = 'scale(1.6)';
+            clickCountElement.style.color = '#ff96c8'; // Đổi màu hồng nhạt một chút khi nảy
             setTimeout(() => {
                 clickCountElement.style.transform = 'scale(1)';
-            }, 200);
+                clickCountElement.style.color = '#fff'; // Trở lại trắng
+            }, 300);
         });
 
         // --- 3. BẢO VỆ TRANG WEB (HẠN CHẾ F12 & CHUỘT PHẢI) ---
-        
-        // Vô hiệu hóa chuột phải
         document.addEventListener('contextmenu', function (e) {
             e.preventDefault();
         });
 
-        // Vô hiệu hóa các phím tắt phổ biến để xem code
         document.addEventListener('keydown', function (e) {
-            // Ngăn chặn phím F12
             if (e.key === 'F12' || e.keyCode === 123) {
                 e.preventDefault();
                 return false;
             }
-            
-            // Ngăn chặn Ctrl + U (Xem nguồn trang)
             if (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.keyCode === 85)) {
                 e.preventDefault();
                 return false;
             }
-            
-            // Ngăn chặn Ctrl + Shift + I (Mở DevTools)
             if (e.ctrlKey && e.shiftKey && (e.key === 'i' || e.key === 'I' || e.keyCode === 73)) {
                 e.preventDefault();
                 return false;
             }
-            
-            // Ngăn chặn Ctrl + Shift + J (Mở Console)
             if (e.ctrlKey && e.shiftKey && (e.key === 'j' || e.key === 'J' || e.keyCode === 74)) {
                 e.preventDefault();
                 return false;
             }
-
-            // Ngăn chặn Ctrl + Shift + C (Inspect Element)
             if (e.ctrlKey && e.shiftKey && (e.key === 'c' || e.key === 'C' || e.keyCode === 67)) {
                 e.preventDefault();
                 return false;
