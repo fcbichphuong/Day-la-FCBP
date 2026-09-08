@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chờ Đợi Bích Phương</title>
+    <!-- Import Font Manrope từ Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            /* Sử dụng font Manrope cho toàn bộ trang web */
+            font-family: 'Manrope', sans-serif;
+            background-image: url('back.jpg'); /* Tham chiếu trực tiếp đến file back.jpg */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Container chứa nội dung, không có viền hay nền mờ */
+        .container {
+            max-width: 900px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px; /* Khoảng cách đều giữa các thành phần */
+        }
+
+        .main-text {
+            font-size: clamp(1.2rem, 2.5vw, 2.2rem);
+            font-weight: 800;
+            line-height: 1.4;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        }
+
+        .sub-text {
+            font-size: clamp(0.8rem, 1.2vw, 1.1rem);
+            font-weight: 400;
+            line-height: 1.6;
+            max-width: 850px;
+            opacity: 0.95;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+            margin-bottom: 10px;
+        }
+
+        .timer {
+            font-size: clamp(2.5rem, 6vw, 5.5rem);
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin: 15px 0;
+            text-shadow: 3px 3px 10px rgba(0,0,0,0.5);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .cta-text {
+            font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+            font-weight: 600;
+            text-transform: uppercase;
+            line-height: 1.5;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+        }
+
+        .action-btn {
+            background: rgba(255, 255, 255, 0.2); /* Nền trắng trong suốt */
+            border: 2px solid rgba(255, 255, 255, 0.6); /* Viền mờ */
+            color: white;
+            padding: 15px 60px;
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            font-weight: 800;
+            font-family: 'Manrope', sans-serif;
+            text-transform: uppercase;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(4px); /* Làm mờ nhẹ phần ảnh dưới nút */
+            -webkit-backdrop-filter: blur(4px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            margin: 10px 0;
+        }
+
+        .action-btn:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: scale(1.05);
+        }
+
+        .action-btn:active {
+            transform: scale(0.98);
+        }
+
+        .counter-text {
+            font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+            font-weight: 600;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+        }
+
+        #click-count {
+            font-weight: 800;
+            display: inline-block;
+            transition: transform 0.2s ease;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Chữ chính in hoa theo mẫu -->
+        <h1 class="main-text">
+            2 BÍCH PHƯƠNG NÀY ĐANG BỊ CHIA CÁCH!<br>
+            CHỈ KHI BÍCH PHƯƠNG RA BÀI MỚI, 2 NGƯỜI MỚI CÓ THỂ<br>
+            CHẠM ĐƯỢC TỚI NHAU MỘT LẦN NỮA
+        </h1>
+        
+        <!-- Đoạn text nhỏ -->
+        <p class="sub-text">Ngày xưa, có 2 người đẹp tên Bích Phương bị buộc phải rời xa nhau kể từ ngày cô ca sĩ nọ ra MV "Thương", đến nay, hai người đẹp vẫn đang ngày càng bị tách ra xa khỏi nhau và chỉ có thể đến gần nhau vào ngày cô ca sĩ nọ năm nào ra MV mới đích thực</p>
+        
+        <!-- Ô đếm thời gian format DD - HH - MM - SS -->
+        <div class="timer" id="timer">00 - 00 - 00 - 00</div>
+        
+        <!-- Text kêu gọi hành động -->
+        <p class="cta-text">
+            GỬI LỜI ĐỂ GỬI LỜI TỚI CÔ CA SĨ NỌ GIÚP 2 BÍCH PHƯƠNG<br>
+            ĐƯỢC TRỞ VỀ BÊN NHAU
+        </p>
+
+        <!-- Nút bấm -->
+        <button class="action-btn" id="btn-submit">ẤN ĐỂ +1 PHIẾU</button>
+        
+        <!-- Bộ đếm -->
+        <p class="counter-text">ĐÃ CÓ <span id="click-count">1231</span> NGƯỜI GỬI ĐI</p>
+    </div>
+
+    <script>
+        // --- 1. XỬ LÝ BỘ ĐẾM THỜI GIAN TĂNG DẦN ---
+        const startDate = new Date('2025-10-23T00:00:00').getTime();
+        const timerElement = document.getElementById('timer');
+
+        // Hàm thêm số 0 đằng trước nếu số nhỏ hơn 10 (vd: 09 thay vì 9)
+        function padZero(num) {
+            return num.toString().padStart(2, '0');
+        }
+
+        function updateTimer() {
+            const now = new Date().getTime();
+            const difference = now - startDate;
+
+            if (difference < 0) {
+                timerElement.innerHTML = "00 - 00 - 00 - 00";
+                return;
+            }
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            // Cập nhật lên giao diện theo chuẩn DD - HH - MM - SS
+            timerElement.innerHTML = `${padZero(days)} - ${padZero(hours)} - ${padZero(minutes)} - ${padZero(seconds)}`;
+        }
+
+        updateTimer();
+        setInterval(updateTimer, 1000);
+
+
+        // --- 2. XỬ LÝ BỘ ĐẾM LƯỢT BẤM NÚT ---
+        let count = 1231;
+        const btnSubmit = document.getElementById('btn-submit');
+        const clickCountElement = document.getElementById('click-count');
+
+        btnSubmit.addEventListener('click', () => {
+            count++;
+            clickCountElement.textContent = count;
+            
+            clickCountElement.style.transform = 'scale(1.5)';
+            setTimeout(() => {
+                clickCountElement.style.transform = 'scale(1)';
+            }, 200);
+        });
+    </script>
+
+</body>
+</html>
